@@ -2,18 +2,56 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>TODO list</h1>
 
-  {% if task_list %}
-    <ul>
-      {% for task in task_listgti  %}
-        <li>
-          {{ task.content }}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>There are no tasks in taxi</p>
-  {% endif %}
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-6">
+        <h1>TODO list</h1>
+      </div>
+      <div class="col-6 text-right">
+        <a href="{% url 'tasks:task-create' %}" class="btn btn-primary">Add Task</a>
+      </div>
+    </div>
 
+    {% if task_list %}
+      <ul>
+        {% for task in task_list %}
+          <div class="row mt-3">
+            <div class="col-9">
+              <h5>
+                {{ task.content }}
+                <span>{% if task.done %}<span style="color: Green; font-weight: bold">Done</span>{% else %}
+                  <span style="color: Red; font-weight: bold">Not Done</span>{% endif %}</span>
+              </h5>
+
+              <p>Created: {{ task.date_of_creation }}</p>
+
+              <h6 style="color: grey">Tags:
+                {% for tag in task.tags.all %}
+                  {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+                <span><a href="{% url 'tasks:task-update' pk=task.id %}">Update</a></span>
+                <span><a href="{% url 'tasks:task-delete' pk=task.id %}">Delete</a></span>
+              </h6>
+
+            </div>
+
+            <div class="col-3 text-right">
+              <p>
+                {% if task.done %}
+                  <a href="{% url 'tasks:change_status' task.id %}" class="btn btn btn-secondary btn-sm">Undo</a>
+                {% else %}
+                  <a href="{% url 'tasks:change_status' task.id %}" class="btn btn-success btn-sm">Complete</a>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <hr class="my-1">
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>There are no tasks in taxi</p>
+    {% endif %}
+
+  </div>
 {% endblock %}

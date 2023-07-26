@@ -13,6 +13,6 @@ class Tag(models.Model):
 
 class Task(models.Model):
     content = models.TextField()
-    date_of_creation = models.DateField()
+    date_of_creation = models.DateTimeField()
     done = models.BooleanField()
     tags = models.ManyToManyField(Tag, related_name="tasks")

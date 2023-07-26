@@ -6,3 +6,14 @@ body {
     float: right;
     margin: 0 2px 0 2px;
 }
+
+.status-done {
+    color: green;
+    font-weight: bold;
+}
+
+
+.status-not-done {
+    color: red;
+    font-weight: bold;
+}
