@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
     "task",
+    "pytest"
 ]
 
 MIDDLEWARE = [
